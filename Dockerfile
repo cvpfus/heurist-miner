@@ -16,5 +16,3 @@ RUN git clone https://github.com/heurist-network/miner-release
 WORKDIR /miner-release
 
 RUN chmod +x llm-miner-starter.sh
-
-CMD ["./llm-miner-starter.sh", "openhermes-2.5-mistral-7b-gptq"]
