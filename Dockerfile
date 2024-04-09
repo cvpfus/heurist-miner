@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04
+FROM vllm/vllm-openai:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -14,9 +14,5 @@ RUN apt-get install software-properties-common -y && \
 RUN git clone https://github.com/heurist-network/miner-release
 
 WORKDIR /miner-release
-
-COPY . /miner-release
-
-RUN chmod +x install_dependencies.sh && ./install_dependencies.sh
 
 RUN chmod +x llm-miner-starter.sh
