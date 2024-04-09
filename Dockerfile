@@ -9,7 +9,7 @@ RUN apt-get update && \
 
 RUN apt-get install software-properties-common -y && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt install python3.8-venv -y
+    apt install python3-venv -y
 
 RUN git clone https://github.com/heurist-network/miner-release
 
