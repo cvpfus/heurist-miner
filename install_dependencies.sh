@@ -45,6 +45,38 @@ setup_python_environment() {
     echo "Conda virtual environment 'llm-venv' activated."
 }
 
+install_with_spinner() {
+    local dep=$1
+    (
+        pip install "$dep" > /dev/null 2>&1
+        echo $? > /tmp/install_exit_status.tmp
+    ) &
+
+    pid=$! # PID of the pip install process
+    spinner="/-\|"
+
+    # Use printf for consistent formatting
+    printf "Installing %-20s" "$dep..."
+
+    while kill -0 $pid 2> /dev/null; do
+        for i in $(seq 0 3); do
+            printf "\b${spinner:i:1}"
+            sleep 0.2
+        done
+    done
+
+    wait $pid
+    exit_status=$(cat /tmp/install_exit_status.tmp)
+    rm /tmp/install_exit_status.tmp
+
+    if [ $exit_status -eq 0 ]; then
+        printf "\b Done.\n"
+    else
+        printf "\b Failed.\n"
+        return 1
+    fi
+}
+
 install_dependencies() {
     echo "Installing Python dependencies..."
     local dependencies=("vllm" "python-dotenv" "toml" "openai" "triton==2.1.0" "wheel" "packaging")
