@@ -36,5 +36,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }},cvpfus/heurist-miner:0.3
+          tags: ${{ steps.meta.outputs.tags }},cvpfus/heurist-miner:0.4
           labels: ${{ steps.meta.outputs.labels }}

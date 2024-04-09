@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /
 
 RUN apt-get update && \
-    apt-get install git jq wget bc -y
+    apt-get install git jq wget bc curl -y
 
 RUN apt-get install software-properties-common -y && \
     add-apt-repository ppa:deadsnakes/ppa && \

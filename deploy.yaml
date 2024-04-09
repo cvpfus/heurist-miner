@@ -2,10 +2,14 @@
 version: "2.0"
 services:
   app:
-    image: cvpfus/heurist-miner:0.3
+    image: cvpfus/heurist-miner:0.4
     expose:
       - port: 80
         as: 80
+        to:
+          - global: true
+      - port: 8000
+        as: 8000
         to:
           - global: true
     env:
@@ -24,7 +28,7 @@ profiles:
           units: 1
           attributes:
             vendor:
-              nvidia: 
+              nvidia:
   placement:
     akash:
       pricing:
