@@ -15,4 +15,8 @@ RUN git clone https://github.com/heurist-network/miner-release
 
 WORKDIR /miner-release
 
+COPY . /miner-release
+
+RUN chmod +x install_dependencies.sh && ./install_dependencies.sh
+
 RUN chmod +x llm-miner-starter.sh

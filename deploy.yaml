@@ -2,7 +2,7 @@
 version: "2.0"
 services:
   app:
-    image: cvpfus/heurist-miner:0.5
+    image: cvpfus/heurist-miner:0.6
     expose:
       - port: 80
         as: 80
@@ -10,18 +10,17 @@ services:
           - global: true
       - port: 8000
         as: 8000
+        proto: tcp
         to:
           - global: true
+    command:
+      - sh
+      - "-c"
+    args:
+      - ./llm-miner-starter.sh $MODEL_NAME; sleep infinity
     env:
       - MODEL_NAME=mistralai/mixtral-8x7b-instruct-v0.1
       - MINER_ID_0=0x544476DB6C3514a456e32F9436490B99395A3031
-    command:
-      - "sh"
-      - "-c"
-    args:
-      - './llm-miner-starter.sh $MODEL_NAME;
-      sleep infinity
-      '
 profiles:
   compute:
     app:
@@ -36,7 +35,7 @@ profiles:
           units: 1
           attributes:
             vendor:
-              nvidia:
+              nvidia: 
   placement:
     akash:
       pricing:
