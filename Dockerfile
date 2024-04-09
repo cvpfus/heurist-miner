@@ -1,4 +1,4 @@
-FROM vllm/vllm-openai:latest
+FROM nvidia/cuda:12.3.2-cudnn9-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
