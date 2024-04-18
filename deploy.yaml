@@ -2,7 +2,7 @@
 version: "2.0"
 services:
   service-1:
-    image: cvpfus/heurist-miner:0.9
+    image: cvpfus/heurist-miner:0.10
     expose:
       - port: 80
         as: 80
@@ -17,8 +17,7 @@ services:
       - sh
       - "-c"
     args: 
-      - './install_flashattention.sh
-      ./llm-miner-starter.sh $MODEL_NAME; sleep infinity'
+      - './llm-miner-starter.sh $MODEL_NAME; sleep infinity'
     env:
       - MODEL_NAME=openhermes-mixtral-8x7b-gptq
       - MINER_ID_0=0x544476DB6C3514a456e32F9436490B99395A3031

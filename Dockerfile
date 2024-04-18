@@ -17,4 +17,6 @@ WORKDIR /miner-release
 
 COPY install_flashattention.sh /miner-release
 
-RUN chmod +x llm-miner-starter.sh && chmod +x install_flashattention.sh
+RUN chmod +x install_flashattention.sh && ./install_flashattention.sh
+
+RUN chmod +x llm-miner-starter.sh
