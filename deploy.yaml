@@ -1,8 +1,8 @@
 ---
 version: "2.0"
 services:
-  app:
-    image: cvpfus/heurist-miner:0.7
+  service-1:
+    image: cvpfus/heurist-miner:0.8
     expose:
       - port: 80
         as: 80
@@ -16,34 +16,34 @@ services:
     command:
       - sh
       - "-c"
-    args:
-      - ./llm-miner-starter.sh $MODEL_NAME; sleep infinity
+    args: 
+      - './llm-miner-starter.sh $MODEL_NAME; sleep infinity'
     env:
-      - MODEL_NAME=mistralai/mixtral-8x7b-instruct-v0.1
+      - MODEL_NAME=openhermes-mixtral-8x7b-gptq
       - MINER_ID_0=0x544476DB6C3514a456e32F9436490B99395A3031
 profiles:
   compute:
-    app:
+    service-1:
       resources:
         cpu:
           units: 8
         memory:
           size: 16Gi
         storage:
-          - size: 64Gi
+          - size: 90Gi
         gpu:
           units: 1
           attributes:
             vendor:
-              nvidia: 
+              nvidia:
   placement:
-    akash:
+    dcloud:
       pricing:
-        app:
+        service-1:
           denom: uakt
           amount: 1000
 deployment:
-  app:
-    akash:
-      profile: app
+  service-1:
+    dcloud:
+      profile: service-1
       count: 1

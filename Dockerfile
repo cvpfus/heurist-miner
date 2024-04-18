@@ -15,4 +15,6 @@ RUN git clone https://github.com/heurist-network/miner-release
 
 WORKDIR /miner-release
 
-RUN chmod +x llm-miner-starter.sh
+COPY install_flashattention.sh /miner-release
+
+RUN chmod +x llm-miner-starter.sh && chmod +x install_flashattention.sh
