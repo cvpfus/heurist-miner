@@ -45,6 +45,7 @@ setup_conda_environment() {
 }
 
 install_dependencies() {
+  pip install torch
   pip install packaging
   pip install ninja
   MAX_JOBS=4 pip install flash-attn --no-build-isolation
