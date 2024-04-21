@@ -2,7 +2,7 @@
 version: "2.0"
 services:
   service-1:
-    image: cvpfus/heurist-miner:0.12
+    image: cvpfus/heurist-miner:0.13
     expose:
       - port: 80
         as: 80
@@ -13,14 +13,31 @@ services:
         proto: tcp
         to:
           - global: true
+      - port: 22
+        as: 22
+        to:
+          - global: true
     command:
       - sh
       - "-c"
     args:
-      - ./llm-miner-starter.sh $MODEL_NAME; sleep infinity
+      - 'apt-get update;
+      apt-get install -y --no-install-recommends -- ssh;
+      apt install htop nano -y;
+      mkdir -p -m0755 /run/sshd;
+      mkdir -m700 ~/.ssh;
+      echo "$SSH_PUBKEY" | tee ~/.ssh/authorized_keys;
+      chmod 0600 ~/.ssh/authorized_keys;
+      ls -lad ~ ~/.ssh ~/.ssh/authorized_keys;
+      md5sum ~/.ssh/authorized_keys;
+      exec /usr/sbin/sshd -D;
+      sleep infinity;'
     env:
-      - MODEL_NAME=openhermes-mixtral-8x7b-gptq
+      - MODEL_NAME=openhermes-2-pro-mistral-7b
       - MINER_ID_0=0x544476DB6C3514a456e32F9436490B99395A3031
+      - MINER_ID_1=0x3EE718A6862584ADdAD097560B15E54a30BF116D
+      - MINER_ID_2=0x471bBC7eeA2dfA0050c1A0012f973C3e0dBf0b7e
+      - SSH_PUBKEY=ssh-rsa 
 profiles:
   compute:
     service-1:
